@@ -13,15 +13,17 @@ public class StringProducerServices {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void sendMessage(String message){
-        kafkaTemplate.send("str-topic",message).whenComplete((result,ex) -> {
-            if (ex != null) {
-                log.error("Execution failed", ex);
-            } else {
-                log.info("Semd message with success: {}", result.getProducerRecord().value());
-                log.info("Partition {}, Offset {}",
-                        result.getRecordMetadata().partition(),
-                        result.getRecordMetadata().offset());
-            }
-        });
+        log.info("Send message {}", message);
+        kafkaTemplate.send("str-topic",message);
+//                .whenComplete((result,ex) -> {
+//            if (ex != null) {
+//                log.error("Execution failed", ex);
+//            } else {
+//                log.info("Semd message with success: {}", result.getProducerRecord().value());
+//                log.info("Partition {}, Offset {}",
+//                        result.getRecordMetadata().partition(),
+//                        result.getRecordMetadata().offset());
+//            }
+//        });
     }
 }
